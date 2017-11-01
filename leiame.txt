@@ -9,3 +9,5 @@ restaura o backup
 mysql -u root -proot trabalho < trabalho.SQL
 
 
+git remote add origin https://github.com/NewBeroy/trabalho.git
+git push -u origin master
