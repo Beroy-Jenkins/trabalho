@@ -1,0 +1,165 @@
+<html ng-app="app" ng-controller="ctrl" ng-keydown="keydown($event)">
+<meta charset="UTF-8">
+<head>
+    <link href="bootstrap-3.3.6.min.css" rel="stylesheet">
+	<link href="index.css" rel="stylesheet">
+</head>
+<body hidden="true">
+
+	<div ng-show="erro" class="formPequeno alert alert-danger text-center">
+		<strong>{{erro}}</strong>
+	</div>	
+	
+	<div ng-show="form == 'login'">
+		<div class="jumbotron formPequeno">
+			<div class="form-group text-center">
+				<label>Entre com seu Usuário</label>
+			</div>
+			<div class="form-group">
+				<input placeholder="Login" type="text" maxlength="50" class="form-control focus" ng-model="login"/>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<button class="btn btn-primary btn-block" ng-click="cadastrarSe()">Cadastrar-se</button>
+				</div>
+				<div class="col-md-6">
+					<button class="btn btn-success btn-block" ng-click="verificarLogin()" ng-disabled="!login">Prosseguir</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div ng-show="form == 'senha'">
+		<div class="jumbotron formPequeno">
+			<div class="form-group text-center">
+				<label>Digite sua senha</label>
+			</div>
+			<div class="form-group">
+				{{usuario.login}}
+			</div>
+			<div class="form-group">
+				<input placeholder="Senha" type="password" maxlength="50" class="form-control focus" ng-model="senha"/>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<button class="btn btn-danger btn-block" ng-click="logout()">Cancelar</button>
+				</div>
+				<div class="col-md-6">
+					<button class="btn btn-success btn-block" ng-click="verificarSenha()" ng-disabled="!senha">Prosseguir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div ng-show="form == 'logado' && !usuario.perguntas.length">
+		A LISTA DE PERGUNTAS ESTÁ VAZIA
+	</div>
+	
+	<div ng-show="form == 'logado' && usuario.perguntas.length">
+		<div class="jumbotron formGrande">
+			<div class="form-group">
+				<div class="row alert alert-info">
+					<div class="col-md-11">
+						<label>Bem vindo {{usuario.login}} - Responda as perguntas</label>
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-danger btn-block" ng-click="logout()">Sair</button>
+					</div>
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<h3>Questão {{usuario.pergunta.id}} de {{usuario.perguntas.length}}</h3>
+			</div>
+			<div class="form-group">
+				<h4>{{usuario.pergunta.text}}</h4>
+			</div>
+			<div class="form-group" ng-repeat="o in usuario.pergunta.opcoes">
+				<button class="btn btn-block" ng-class="o.selecionada?'btn-primary':'btn-default'" ng-click="selecionaOpcao(o)">{{o.text}}</button>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="usuario.pergunta.id == 1">Voltar</button>
+				</div>
+				<div class="col-md-6">
+					<button ng-if="usuario.pergunta.id < usuario.perguntas.length" class="btn btn-success btn-block" ng-click="proximaQuestao()" ng-disabled="!usuario.pergunta.respondida">Prosseguir</button>
+					<button ng-if="usuario.pergunta.id == usuario.perguntas.length" class="btn btn-success btn-block" ng-click="concluir()" ng-disabled="!usuario.pergunta.respondida">Concluir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="form == 'resultado'">
+		<div class="jumbotron formGrande">
+			<div class="form-group">
+				<div class="row alert alert-info">
+					<div class="col-md-9">
+						<label>Olá {{usuario.login}} - Este é o resultado do seu teste</label>
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-default btn-block" ng-click="iniciarProva()">Refazer o Teste</button>
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-danger btn-block" ng-click="logout()">Sair</button>
+					</div>
+					
+				</div>
+			</div>			
+		</div>
+		<div class="jumbotron formGrande">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="btn btn-block btn-success">Acertos: {{usuario.acertos}}</div>
+				</div>
+				<div class="col-md-6">
+					<div class="btn btn-block btn-danger">Erros: {{usuario.erros}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="jumbotron formGrande" ng-repeat="pergunta in usuario.perguntas">
+			<div class="form-group">
+				<h4>{{pergunta.text}}</h4>
+			</div>
+			<div class="form-group" ng-repeat="o in pergunta.opcoes">							
+				<div ng-if="o.selecionada">
+					<div ng-if="o.correta" class="btn btn-block btn-success">{{o.text}}</div>
+					<div ng-if="!o.correta" class="btn btn-block btn-danger">{{o.text}}</div>
+				</div>
+				<div ng-if="!o.selecionada">
+					<div ng-if="o.correta" class="btn btn-block btn-warning">{{o.text}}</div>
+					<div ng-if="!o.correta" class="btn btn-block btn-default">{{o.text}}</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	
+	<div ng-show="form == 'cadastro'">
+		<div class="jumbotron formPequeno">
+			<div class="form-group text-center">
+				<label>Informe os dados do Usuário</label>
+			</div>
+			<div class="form-group">
+				<input placeholder="Login" type="text" maxlength="50" class="form-control focus" ng-model="login"/>
+			</div>
+			<div class="form-group">
+				<input placeholder="Senha" type="password" maxlength="50" class="form-control" ng-model="senha"/>
+			</div>
+			<div class="form-group">
+				<input placeholder="Confirmar Senha" type="password" maxlength="50" class="form-control" ng-model="senha2"/>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<button class="btn btn-danger btn-block" ng-click="logout()">Cancelar</button>
+				</div>
+				<div class="col-md-6">
+					<button class="btn btn-primary btn-block" ng-click="prosseguirCadastro()" ng-disabled="!login||!senha||senha!=senha2">Prosseguir</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+</body>
+</html>
+<script src="jquery-3.1.0.min.js"></script>
+<script src="angular-1.5.8.js"></script>
+<script src="index.js"></script>

@@ -1,0 +1,16 @@
+.formPequeno {
+	width : 400;
+	margin : auto;
+	padding: 20;
+	margin-top: 20;
+}
+.formGrande {
+	width : 1200;
+	margin : auto;
+	padding: 20;
+	margin-top: 20;
+}
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
