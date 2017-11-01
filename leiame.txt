@@ -1,0 +1,11 @@
+
+fazer backup do banco
+mysqldump --user=root --password=root trabalho> trabalho.SQL
+
+criar o banco se necessario
+mysql -u root -proot -e "create database trabalho; GRANT ALL PRIVILEGES ON trabalho.* TO root@localhost IDENTIFIED BY 'root'
+
+restaura o backup
+mysql -u root -proot trabalho < trabalho.SQL
+
+
