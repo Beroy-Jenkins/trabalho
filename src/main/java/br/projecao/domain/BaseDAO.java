@@ -17,7 +17,7 @@ public class BaseDAO {
 
 	protected Connection getConnection() throws SQLException {
 		String url = "jdbc:mysql://localhost/trabalho?useOldAliasMetadataBehavior = true";
-		Connection conn = DriverManager.getConnection(url, "trabalho", "trabalho123");
+		Connection conn = DriverManager.getConnection(url, "root", "root");
 		return conn;
 	}
 
