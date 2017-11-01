@@ -51,7 +51,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>Trabalho</finalName>
+		<finalName>trabalho</finalName>
 
 		<plugins>
 			<!-- b Compiler -->
