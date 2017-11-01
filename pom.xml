@@ -54,7 +54,7 @@
 		<finalName>Trabalho</finalName>
 
 		<plugins>
-			<!-- Compiler -->
+			<!-- b Compiler -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
