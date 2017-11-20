@@ -15,7 +15,6 @@ public class MyApplication extends Application {
 //		return singletons;
 //	}
 //	
-	
 	@Override
 	public Map<String, Object> getProperties(){
 		Map<String, Object> properties = new HashMap<>();

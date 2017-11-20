@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
+			<version>2.8.2</version>
 		</dependency>
 
 		<!-- lombok para gerar os metodos get e set, to string e outras das classes java-->

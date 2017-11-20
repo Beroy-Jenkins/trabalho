@@ -4,101 +4,6 @@ const url_checar_user = 'rest/usuario/checaruser';
 const url_checar_senha = 'rest/usuario/checarsenha';
 const url_carregar_perguntas = 'rest/pergunta';
 
-var httpMock = function() {
-
-	var usuarios = [];
-
-	function addUser(login, senha) {
-		var o = {
-			login : login,
-			senha : senha
-		};
-		o.id = usuarios.length + 1;
-		usuarios.push(o);
-		return o;
-	}
-	function getUser(login) {
-		return usuarios.filter(function(o) {
-			return o.login == login;
-		})[0];
-	}
-
-	addUser('adm', '123');
-
-	var data;
-
-	var result = {
-		then : function(ok, fail) {
-			if (ok)
-				ok(data);
-		}
-	}
-
-	var post = function(url, params) {
-
-		data = {};
-
-		if (url == url_add_user) {
-			var o = addUser(params.login, params.senha);
-			data.usuario = o;
-			return result;
-		}
-
-		if (url == url_checar_user) {
-			if (!getUser(params.login)) {
-				data.erro = 'Usuario não encontrado';
-			}
-			return result;
-		}
-
-		if (url == url_checar_senha) {
-			var o = getUser(params.login);
-			if (o.senha == params.senha) {
-				data.usuario = o;
-			}
-			return result;
-		}
-
-		if (url == url_carregar_perguntas) {
-			data = {};
-			data.list = [];
-
-			function addPergunta(pergunta, opcao1, opcao2, opcao3, opcao4,
-					opcaoCorreta) {
-				var o = {};
-				o.pergunta = pergunta;
-				o.opcao1 = opcao1;
-				o.opcao2 = opcao2;
-				o.opcao3 = opcao3;
-				o.opcao4 = opcao4;
-				o.opcaoCorreta = opcaoCorreta;
-				data.list.push(o);
-			}
-
-			addPergunta('Quanto é 3*3', '4', '93', '12', '9', 3);
-			addPergunta('Azul+Amarelo é', 'Verde', 'Vermelho', 'Rosa',
-					'Laranja', 0);
-			addPergunta('Quem descobriu o Brasil', 'Maria', 'João', 'Pedro',
-					'José', 2);
-			addPergunta('Quantos livros tem a Bíblia?', '100', '93', '45',
-					'66', 3);
-			addPergunta('Onde fica Brasilia?', 'Canadá', 'Brasil', 'Bolívia',
-					'Chile', 1);
-			return result;
-
-		}
-
-		$s.erro = 'url nao implementada: ' + url;
-		return result;
-
-	};
-
-	return {
-		post : post,
-		get : post
-	};
-
-}();
 
 var app = angular.module("app", []);
 
@@ -111,56 +16,6 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 	// cliente sem server, para testes
 	//$s.http = httpMock;
 
-	function request(func, url, params, onSuccessFunction, onFailFunction) {
-
-		if (params instanceof Function) {
-			$s.erro = 'params instanceof Function';
-			return;
-		}
-		if (onSuccessFunction && !(onSuccessFunction instanceof Function)) {
-			$s.erro = '!(onSuccessFunction instanceof Function)';
-			return;
-		}
-		if (onFailFunction && !(onFailFunction instanceof Function)) {
-			$s.erro = '!(onFailFunction instanceof Function)';
-			return;
-		}
-
-		var rp = {
-			headers : {
-				'Content-Type' : 'application/json'
-			}
-		};
-		if (!params)
-			params = [];
-		if (params.responseType) {
-			rp.responseType = 'arraybuffer';
-		}
-		func(url, params, rp).then(function(response) {
-			var data = response.data;
-			if (data.erro) {
-				if (onFailFunction) {
-					onFailFunction(data);
-				}
-			} else {
-				if (onSuccessFunction) {
-					onSuccessFunction(data);
-				}
-			}
-		}, function(data) {
-			if (onFailFunction) {
-				onFailFunction(data);
-			}
-		});
-	}
-	;
-
-	var post = function(url, params, onSuccessFunction, onFailFunction) {
-		request($s.http.post, url, params, onSuccessFunction, onFailFunction);
-	}
-	var get = function(url, params, onSuccessFunction, onFailFunction) {
-		request($s.http.get, url, params, onSuccessFunction, onFailFunction);
-	}
 
 	$s.iniciarProva = function() {
 
@@ -176,6 +31,7 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 			$s.usuario.pergunta = $s.usuario.perguntas[0];
 			$s.usuario.acertos = 0;
 			$s.usuario.erros = 0;
+			$s.perguntaAtiva = 0;
 			$s.form = 'logado';
 		});
 
@@ -296,11 +152,20 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 
 	$s.voltarQuestao = function() {
 		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id - 2];
+
+/*
+		$s.perguntaAtiva--; 
+		$s.usuario.pergunta = $s.usuario.perguntas[perguntaAtiva];
+*/		
 	};
 
 	$s.proximaQuestao = function() {
 		$s.usuario.provaIniciada = true;
 		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id];
+/*		
+		$s.perguntaAtiva++; 
+		$s.usuario.pergunta = $s.usuario.perguntas[perguntaAtiva];
+*/		
 	};
 	$s.concluir = function() {
 		$s.form = 'resultado';

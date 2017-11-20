@@ -1,7 +1,7 @@
 <html ng-app="app" ng-controller="ctrl" ng-keydown="keydown($event)">
 <meta charset="UTF-8">
 <head>
-    <link href="bootstrap-3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="source/bootstrap-3.3.7/css/bootstrap.min.css">
 	<link href="index.css" rel="stylesheet">
 </head> 
 <body hidden="true">
@@ -75,11 +75,12 @@
 				<h4>{{usuario.pergunta.text}}</h4>
 			</div>
 			<div class="form-group" ng-repeat="o in usuario.pergunta.opcoes">
-				<button class="btn btn-block" ng-class="o.selecionada?'btn-primary':'btn-default'" ng-click="selecionaOpcao(o)">aa{{o.text}}</button>
+				<div style="font-size: 17px;" class="" ng-class="o.selecionada?'btn-primary':'btn-default'" ng-click="selecionaOpcao(o)">{{o.text}}</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="usuario.pergunta.id == 1">Voltar</button>
+					<!-- button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="perguntaAtiva == 0">Voltar</button -->
 				</div>
 				<div class="col-md-6">
 					<button ng-if="usuario.pergunta.id < usuario.perguntas.length" class="btn btn-success btn-block" ng-click="proximaQuestao()" ng-disabled="!usuario.pergunta.respondida">Prosseguir</button>
@@ -160,6 +161,8 @@
 	
 </body>
 </html>
-<script src="jquery-3.1.0.min.js"></script>
-<script src="angular-1.5.8.js"></script>
+<script src="source/jquery-3.1.0.min.js"></script>
+<script src="source/angular-1.6.6.min.js"></script>
+<script src="response.js"></script>
+<script src="indexmock.js"></script>
 <script src="index.js"></script>

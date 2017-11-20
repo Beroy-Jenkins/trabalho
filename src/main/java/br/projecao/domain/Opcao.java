@@ -12,6 +12,7 @@ public class Opcao implements Serializable {
 	private static final long serialVersionUID = -8861636218458516279L;
 	private Long id;
 	private String text;
+	private String status;
 	private Long idPergunta;
 	private Boolean correta = false;
 	
