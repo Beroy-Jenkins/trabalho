@@ -126,14 +126,17 @@
 			<div class="form-group">
 				<h4>{{pergunta.text}}</h4>
 			</div>
+			
+							<div style="font-size: 17px;" class="" ng-class="o.selecionada?'btn-primary':'btn-default'" ng-click="selecionaOpcao(o)">{{o.text}}</div>
+			
 			<div class="form-group" ng-repeat="o in pergunta.opcoes">							
 				<div ng-if="o.selecionada">
-					<div ng-if="o.correta" class="btn btn-block btn-success">{{o.text}}</div>
-					<div ng-if="!o.correta" class="btn btn-block btn-danger">{{o.text}}</div>
+					<div ng-if="o.correta" class="btn-block btn-success">{{o.text}}</div>
+					<div ng-if="!o.correta" class="btn-block btn-danger">{{o.text}}</div>
 				</div>
 				<div ng-if="!o.selecionada">
-					<div ng-if="o.correta" class="btn btn-block btn-warning">{{o.text}}</div>
-					<div ng-if="!o.correta" class="btn btn-block btn-default">{{o.text}}</div>
+					<div ng-if="o.correta" class="btn-block btn-warning">{{o.text}}</div>
+					<div ng-if="!o.correta" class="btn-block btn-default">{{o.text}}</div>
 				</div>				
 			</div>
 		</div>
