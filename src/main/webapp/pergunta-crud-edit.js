@@ -31,13 +31,28 @@ app.controller("edit", function ($scope, $http, $timeout) {
 		post(url_salvar, {o: o}
 			, function(data){
 				//console.log(data.o);
+				
+				var menssagem = "Registro salvo com sucesso";
 				$s.formEdicao.o = data.o;
+				
 				if (novoRegistro) {
 					$s.pesquisa.items.push(data.o);
+					menssagem = "Registro inserido com sucesso";
 				}
+				
+				new PNotify({
+				    title: 'Successo!',
+				    text: menssagem,
+				    type: 'success'
+				});				
 			}
 			, function(data){
 					$s.erro = data.erro;
+					new PNotify({
+					    title: 'Erro',
+					    text: 'Não foi possivel salvar',
+					    type: 'error'
+					});					
 			}
 	
 		);

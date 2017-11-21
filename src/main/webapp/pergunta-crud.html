@@ -1,9 +1,15 @@
 <html ng-app="app" ng-controller="ctrl" ng-keydown="keydown($event)">
     <meta charset="UTF-8">
     <head>
+        <!-- biblioteca css -->
         <link rel="stylesheet" href="source/bootstrap-3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="source/font-awesome-4.7.0/css/font-awesome.min.css" />
+        <!-- css da biblioteca de caixa de dialogo de confirmação -->
         <link rel="stylesheet" href="source/jquery-confirm-3.3.2/css/jquery-confirm.css" />
+       
+        <!-- css da biblioteca de menssagem  -->
+        <link rel="stylesheet" href="source/pnotify-3.2.0/pnotify.custom.min.css" />
+        
+        
     </head>
     <body hidden="true">
 
@@ -100,7 +106,7 @@
                                     <textarea type="text" ng-model="o.text" ng-required="true"  class="form-control custom-control" rows="3" style="resize:none" required="required"></textarea>						
                                 </td>
                                 <td ng-class="{'correta':o.correta == true}">
-                                    <input type="radio" name="radio-primary" ng-model="o.correta" value=true ng-change="opcaoUpdate($index)" />
+                                    <input type="radio" name="radio-primary" ng-model="o.correta" ng-value=true ng-change="opcaoUpdate($index)" />
                                 </td>
                                 <td class="text-center">
                                     <i class="fa fa-times-circle fa-lg text-danger" 
@@ -133,13 +139,24 @@
 	
 	</body>
 </html>
+
+<!-- bibliotecas javascript utilizadas -->
 <script src="source/jquery-3.1.0.min.js"></script>
 <script src="source/angular-1.6.6.min.js"></script>
+
+<!-- js da biblioteca de caixa de dialogo de confirmação -->
 <script src="source/jquery-confirm-3.3.2/js/jquery-confirm.js"></script>
 
+<!-- js da biblioteca de menssagem  -->
+<script src="source/pnotify-3.2.0/pnotify.custom.min.js"></script>
+
+<!-- funcoes basicas de requisção aoserver -->
 <script src="response.js"></script>
 
+<!-- funcoes mocks, para simular o back end durante o desovilmento -->
 <script src="pergunta-crud-mock.js"></script>
+
+<!--  js angular do crud de pergunta -->
 <script src="pergunta-crud.js"></script>
 <script src="pergunta-crud-list.js"></script>
 <script src="pergunta-crud-edit.js"></script>

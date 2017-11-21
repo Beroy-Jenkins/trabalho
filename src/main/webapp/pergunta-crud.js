@@ -10,6 +10,8 @@ const url_salvar = 'rest/pergunta/cadastro';
 var app = angular.module("app",[]);
 	
 
+
+
 //diretiva para resolver o post dos botoes
 app.directive('eatClick', function() {
     return function(scope, element, attrs) {
