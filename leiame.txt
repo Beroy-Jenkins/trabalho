@@ -1,3 +1,5 @@
+url jdbc do banco 
+jdbc:mysql://localhost:3306/trabalho?useOldAliasMetadataBehavior=true
 
 fazer backup do banco
 mysqldump --user=root --password=root trabalho> trabalho.SQL
@@ -28,5 +30,6 @@ git pull origin master
 para forçar a atualizacao do local, cuidado perde todas as alterações nao comitadas
 git fetch --all
 git reset --hard origin/master
+
 
 
