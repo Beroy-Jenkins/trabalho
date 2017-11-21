@@ -42,7 +42,7 @@ public class PerguntaDAO extends BaseDAO {
 		String where = "";
 
 		// se o parametro text for nullo ou em branco
-		if ((id == null) || (id.trim().length() > 0)) {
+		if ((id != null) && (id.trim().length() > 0)) {
 			where = "where p.id = " + id;
 		}
 		sql = String.format(sql, where);

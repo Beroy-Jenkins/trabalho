@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<h3>Questão {{usuario.pergunta.id}} de {{usuario.perguntas.length}}</h3>
+				<h3>Questão {{perguntaAtiva + 1}} de {{usuario.perguntas.length}}</h3>
 			</div>
 			<div class="form-group">
 				<h4>{{usuario.pergunta.text}}</h4>
@@ -79,12 +79,17 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="usuario.pergunta.id == 1">Voltar</button>
+					<button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="perguntaAtiva == 0">Voltar</button>
 					<!-- button class="btn btn-danger btn-block" ng-click="voltarQuestao()" ng-disabled="perguntaAtiva == 0">Voltar</button -->
 				</div>
 				<div class="col-md-6">
-					<button ng-if="usuario.pergunta.id < usuario.perguntas.length" class="btn btn-success btn-block" ng-click="proximaQuestao()" ng-disabled="!usuario.pergunta.respondida">Prosseguir</button>
-					<button ng-if="usuario.pergunta.id == usuario.perguntas.length" class="btn btn-success btn-block" ng-click="concluir()" ng-disabled="!usuario.pergunta.respondida">Concluir</button>
+					<button ng-if="perguntaAtiva < (usuario.perguntas.length - 1)" 
+					class="btn btn-success btn-block" ng-click="proximaQuestao()" 
+					ng-disabled="!usuario.pergunta.respondida">Prosseguir</button>
+					
+					<button ng-if="perguntaAtiva == (usuario.perguntas.length - 1)" 
+					class="btn btn-success btn-block" ng-click="concluir()" 
+					ng-disabled="!usuario.pergunta.respondida">Concluir</button>
 				</div>
 			</div>
 		</div>

@@ -151,21 +151,18 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 	};
 
 	$s.voltarQuestao = function() {
-		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id - 2];
+//		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id - 2];
 
-/*
 		$s.perguntaAtiva--; 
-		$s.usuario.pergunta = $s.usuario.perguntas[perguntaAtiva];
-*/		
+		$s.usuario.pergunta = $s.usuario.perguntas[perguntaAtiva];		
 	};
 
 	$s.proximaQuestao = function() {
 		$s.usuario.provaIniciada = true;
-		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id];
-/*		
+//		$s.usuario.pergunta = $s.usuario.perguntas[$s.usuario.pergunta.id];		
 		$s.perguntaAtiva++; 
 		$s.usuario.pergunta = $s.usuario.perguntas[perguntaAtiva];
-*/		
+		
 	};
 	$s.concluir = function() {
 		$s.form = 'resultado';
