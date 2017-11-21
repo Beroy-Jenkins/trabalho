@@ -19,7 +19,7 @@ para comitar no repo local
 git commit -am " "
 
 para mandar atualizações do repo local para o remoto
-git push -u origin master
+git push origin master
 
 
 para atualizar seu repositório local com a mais nova versão, execute 
